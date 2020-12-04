@@ -29,8 +29,11 @@ const New = ({
   };
 
   const submit = () => {
-    console.log(form);
-    const task = { ...form, schema: JSON.parse(form.schema) };
+    const task = {
+      ...form,
+      schema: JSON.parse(form.schema),
+      status: "Working",
+    };
     if (task._id) {
       putTask(task);
     } else {
@@ -75,7 +78,9 @@ const New = ({
           />
         </FormGroup>
         <FormGroup>
-          <Label for="txtListCssSelector">Selector CSS de lista de elementos:</Label>
+          <Label for="txtListCssSelector">
+            Selector CSS de lista de elementos:
+          </Label>
           <Input
             name="list_css_selector"
             id="txtListCssSelector"
@@ -109,7 +114,6 @@ const New = ({
             id="txtSchema"
             value={form.schema}
             onChange={onChange}
-
           />
         </FormGroup>
       </Form>

@@ -25,13 +25,18 @@ const Header = () => {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
-          {routes.map(({ title, path }, idx) => (
-            <NavItem key={idx}>
-              <NavLink tag={Link} to={path}>
-                {title}
-              </NavLink>
-            </NavItem>
-          ))}
+          {routes.map(({ title, path, isNotInHeader }, idx) => {
+            if (isNotInHeader) {
+              return <></>;
+            }
+            return (
+              <NavItem key={idx}>
+                <NavLink tag={Link} to={path}>
+                  {title}
+                </NavLink>
+              </NavItem>
+            );
+          })}
         </Nav>
       </Collapse>
     </Navbar>
