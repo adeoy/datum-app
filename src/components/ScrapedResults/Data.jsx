@@ -8,7 +8,15 @@ import { formatMoney } from "../../utils/index";
 
 const Data = ({ scrapedResults, deleteScrapedResult, setModalOpen }) => {
   const data = scrapedResults.map((item, idx) => {
+    console.log(item);
     item["#"] = idx + 1;
+    const price = item.data["price"].value;
+    const price_old = item.data["price_old"].value;
+    if (price_old === 0) {
+      item["discount"] = 0.0;
+    } else {
+      item["discount"] = 100 - (price / price_old) * 100;
+    }
     return item;
   });
 
@@ -34,7 +42,11 @@ const Data = ({ scrapedResults, deleteScrapedResult, setModalOpen }) => {
     },
   }));
 
-  const columns = [...[{ title: "#", data: "#" }], ...extra];
+  const columns = [
+    ...[{ title: "#", data: "#" }],
+    ...extra,
+    ...[{ title: "Descuento", format: (row) => `%${row.discount.toFixed(2)}` }],
+  ];
 
   return (
     <DataView
